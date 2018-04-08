@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MoviesApp</string>
+    <string name="add_person_first_name">First name</string>
+    <string name="add_person_last_name">Last name</string>
+    <string name="add_person_day_of_birth">Day of birth</string>
+    <string name="add_person_save">save</string>
+    <string name="add_person_text_view">add person</string>
+    <string name="gallery_fragment_title">Galeria</string>
+    <string name="staring_fragment_title">Obsada</string>
+</resources>
