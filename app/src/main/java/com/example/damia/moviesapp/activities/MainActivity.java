@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.damia.moviesapp.R;
 import com.example.damia.moviesapp.adapters.MoviesAdapter;
 import com.example.damia.moviesapp.adapters.PeopleAdapter;
+import com.example.damia.moviesapp.data.DataHolder;
 import com.example.damia.moviesapp.data.Movie;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mMovies = Movie.getTestMoviesList();
+        mMovies = DataHolder.getTestMoviesList();
         setupRecyclerView();
     }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.damia.moviesapp.R;
@@ -35,12 +36,12 @@ public class PeopleAdapter extends ArrayAdapter<Person> {
         }
         // lookup view for data population
         if(person != null) {
+            ImageView ivPhoto = convertView.findViewById(R.id.iv_person_img);
             TextView tvName = convertView.findViewById(R.id.tv_person_firstname);
             TextView tvSurname = convertView.findViewById(R.id.tv_person_lastname);
             TextView tvDate = convertView.findViewById(R.id.tv_person_birthday);
 
-            System.out.println(person);
-
+            ivPhoto.setImageResource(person.getImgResource());
             tvName.setText(person.getFirstName());
             tvSurname.setText(person.getLastName());
             tvDate.setText(birthday(person));
