@@ -8,6 +8,51 @@
     android:orientation="vertical"
     >
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_movie_main"
+            android:layout_width="113dp"
+            android:layout_height="132dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_movie_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="genre"
+                android:textSize="20sp"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
@@ -16,12 +61,12 @@
         app:tabMode="fixed"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorAccent"
-        ></android.support.design.widget.TabLayout>
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.damia.moviesapp.R;
-import com.example.damia.moviesapp.activities.MainActivity;
 import com.example.damia.moviesapp.activities.MovieActivity;
-import com.example.damia.moviesapp.data.Movie;
+import com.example.damia.moviesapp.entities.Movie;
 
 import java.util.List;
 
@@ -73,5 +71,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     @Override
     public int getItemCount(){
         return mMovies.size();
+    }
+
+    public void onItemDismiss(int position){
+        mMovies.remove(position);
+        notifyItemRemoved(position);
     }
 }

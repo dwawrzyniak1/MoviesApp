@@ -1,4 +1,4 @@
-package com.example.damia.moviesapp.data;
+package com.example.damia.moviesapp.entities;
 
 import com.example.damia.moviesapp.R;
 
@@ -40,13 +40,13 @@ public class DataHolder {
     public static List<Movie> getTestMoviesList(){
         List<Movie> movies = new ArrayList<>();
         Integer[] ids = {1,2,3};
-        movies.add(new Movie("Fight club", R.drawable.fightclub, ids));
-        movies.add(new Movie("Prestige", R.drawable.prestige));
-        movies.add(new Movie("500 days of Summer", R.drawable.the500daysofsummer));
-        movies.add(new Movie("Kiler", R.drawable.kiler));
-        movies.add(new Movie("Pulp fiction", R.drawable.pulpfiction));
-        movies.add(new Movie("The phantom thread", R.drawable.phantomthread));
-        movies.add(new Movie("Dancer in the dark", R.drawable.dancerinthedark));
+        movies.add(new Movie("Fight club", "Thriller", R.drawable.fightclub, ids));
+        movies.add(new Movie("Prestige", "Thriller",R.drawable.prestige));
+        movies.add(new Movie("500 days of Summer","Drama", R.drawable.the500daysofsummer));
+        movies.add(new Movie("Kiler","Comedy", R.drawable.kiler));
+        movies.add(new Movie("Pulp fiction","Thriller", R.drawable.pulpfiction));
+        movies.add(new Movie("The phantom thread","Drama", R.drawable.phantomthread));
+        movies.add(new Movie("Dancer in the dark","Thriller", R.drawable.dancerinthedark));
         return movies;
     }
 

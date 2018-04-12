@@ -1,18 +1,9 @@
-package com.example.damia.moviesapp.data;
+package com.example.damia.moviesapp.entities;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.damia.moviesapp.R;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by damia on 27.03.2018.

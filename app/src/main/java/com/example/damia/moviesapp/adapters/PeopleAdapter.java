@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.damia.moviesapp.R;
-import com.example.damia.moviesapp.data.Person;
+import com.example.damia.moviesapp.entities.Person;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

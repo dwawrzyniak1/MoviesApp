@@ -12,9 +12,9 @@ import android.widget.ListView;
 import com.example.damia.moviesapp.R;
 import com.example.damia.moviesapp.activities.MovieActivity;
 import com.example.damia.moviesapp.adapters.PeopleAdapter;
-import com.example.damia.moviesapp.data.DataHolder;
-import com.example.damia.moviesapp.data.Movie;
-import com.example.damia.moviesapp.data.Person;
+import com.example.damia.moviesapp.entities.DataHolder;
+import com.example.damia.moviesapp.entities.Movie;
+import com.example.damia.moviesapp.entities.Person;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,6 @@ public class FragmentActors extends Fragment {
 
     private void initializeOnCreate() {
         mParent = getActivity();
-        System.out.println(getView());
         mPeople = new ArrayList<>();
         fillPeopleArrayList();
         mAdapter = new PeopleAdapter(mParent.getApplicationContext(), mPeople);
@@ -59,6 +58,7 @@ public class FragmentActors extends Fragment {
 
     private void fillPeopleArrayList() {
         Movie movie = ((MovieActivity)mParent).getMovie();
+        System.out.println(movie);
         for(Integer id : movie.getActorsIds()) mPeople.add(DataHolder.testActorsMap.get(id));
     }
 }

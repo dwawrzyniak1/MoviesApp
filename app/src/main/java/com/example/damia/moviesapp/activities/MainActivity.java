@@ -4,14 +4,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.example.damia.moviesapp.R;
 import com.example.damia.moviesapp.adapters.MoviesAdapter;
-import com.example.damia.moviesapp.adapters.PeopleAdapter;
-import com.example.damia.moviesapp.data.DataHolder;
-import com.example.damia.moviesapp.data.Movie;
+import com.example.damia.moviesapp.entities.DataHolder;
+import com.example.damia.moviesapp.entities.Movie;
 
 import java.util.List;
+
+import static android.support.v7.widget.helper.ItemTouchHelper.LEFT;
+import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +29,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mMovies = DataHolder.getTestMoviesList();
         setupRecyclerView();
+        setupItemTouchHandler();
+    }
+
+    private void setupItemTouchHandler() {
+        ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                return makeMovementFlags(0, LEFT | RIGHT);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                ((MoviesAdapter)mAdapter).onItemDismiss(viewHolder.getAdapterPosition());
+            }
+        };
+        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void setupRecyclerView() {
