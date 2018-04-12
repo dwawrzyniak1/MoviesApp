@@ -1,53 +1,32 @@
 package com.example.damia.moviesapp.entities;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 /**
  * Created by damia on 07.04.2018.
  */
-
+@Entity
 public class Movie implements Parcelable{
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private String mTitle;
-    private static Map<String, Integer> mImgResourceMap = new HashMap<>();
-    private HashSet<Integer> mActorsIds;
     private String mGenre;
+    private Integer mPosterResource;
 
-    public Movie(String mTitle, String mGenre) {
+    public Movie(String mTitle, String mGenre, Integer mPosterResource) {
         this.mTitle = mTitle;
         this.mGenre = mGenre;
-        mActorsIds = new HashSet<>();
-    }
-
-    public Movie(String mTitle, String mGenre,  Integer imgResource){
-        this(mTitle, mGenre);
-        setMovieImgResource(imgResource);
-    }
-
-    public Movie(String title, String genre, HashSet<Integer> actors){
-        mTitle = title;
-        mGenre = genre;
-        mActorsIds = actors;
-    }
-
-    public Movie(String title, String genre, Integer imgResource, Integer[] actorsId){
-        this(title, genre, imgResource);
-        for(Integer i : actorsId) mActorsIds.add(i);
-    }
-
-
-
-    public void addActor(Integer actorId){
-        mActorsIds.add(actorId);
+        this.mPosterResource = mPosterResource;
     }
 
     protected Movie(Parcel in){
-        this(in.readString(), in.readString(), (HashSet)in.readSerializable());
+        mTitle = in.readString();
+        mGenre = in.readString();
+        mPosterResource = in.readInt();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -71,15 +50,7 @@ public class Movie implements Parcelable{
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(mTitle);
         out.writeString(mGenre);
-        out.writeSerializable(mActorsIds);
-    }
-
-    public void setMovieImgResource(Integer imgResource){
-        mImgResourceMap.put(mTitle, imgResource);
-    }
-
-    public Integer getMovieImgResource(){
-        return mImgResourceMap.get(mTitle);
+        out.writeInt(mPosterResource);
     }
 
     public String getTitle() {
@@ -90,10 +61,6 @@ public class Movie implements Parcelable{
         this.mTitle = mTitle;
     }
 
-    public HashSet<Integer> getActorsIds(){
-        return mActorsIds;
-    }
-
     public String getGenre() {
         return mGenre;
     }
@@ -101,4 +68,13 @@ public class Movie implements Parcelable{
     public void setGenre(String mGenre) {
         this.mGenre = mGenre;
     }
+
+    public void setPosterResource(Integer imgResource){
+        mPosterResource = imgResource;
+    }
+
+    public Integer getPosterResource(){
+        return mPosterResource;
+    }
+
 }

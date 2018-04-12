@@ -50,7 +50,7 @@ public class MovieActivity extends AppCompatActivity {
 
     private void initializeMovieInfo() {
         ImageView ivMainImage = findViewById(R.id.iv_movie_main);
-        ivMainImage.setImageResource(mMovie.getMovieImgResource());
+        ivMainImage.setImageResource(mMovie.getPosterResource());
         TextView tvTitle = findViewById(R.id.tv_movie_title);
         TextView tvGenre = findViewById(R.id.tv_movie_genre);
         tvTitle.setText(mMovie.getTitle());

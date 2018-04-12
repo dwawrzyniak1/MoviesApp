@@ -65,7 +65,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         TextView textView = viewHolder.tvMovieTitle;
         textView.setText(movie.getTitle());
         ImageView imageView = viewHolder.ivMoviePoster;
-        imageView.setImageResource(movie.getMovieImgResource());
+        imageView.setImageResource(movie.getPosterResource());
     }
 
     @Override

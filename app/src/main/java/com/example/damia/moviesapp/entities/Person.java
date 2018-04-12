@@ -1,5 +1,8 @@
 package com.example.damia.moviesapp.entities;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,12 +12,18 @@ import java.util.GregorianCalendar;
  * Created by damia on 27.03.2018.
  */
 
-
+@Entity
 public class Person implements Parcelable{
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+    @ColumnInfo(name = "first_name")
     private String firstName;
+    @ColumnInfo(name = "last_name")
     private String lastName;
+    @ColumnInfo(name = "day_of_birth")
     private GregorianCalendar dayOfBirth;
+    @ColumnInfo(name = "profile_image")
     private Integer imgResource;
 
     public Person(String firstName, String lastName, GregorianCalendar dayOfBirth) {
@@ -32,6 +41,7 @@ public class Person implements Parcelable{
         firstName = in.readString();
         lastName = in.readString();
         dayOfBirth = (GregorianCalendar)in.readSerializable();
+        imgResource = in.readInt();
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {
@@ -56,6 +66,7 @@ public class Person implements Parcelable{
         out.writeString(firstName);
         out.writeString(lastName);
         out.writeSerializable(dayOfBirth);
+        out.writeInt(imgResource);
     }
 
     /*
