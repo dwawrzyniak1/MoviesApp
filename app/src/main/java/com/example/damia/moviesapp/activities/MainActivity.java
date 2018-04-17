@@ -8,7 +8,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.example.damia.moviesapp.R;
 import com.example.damia.moviesapp.adapters.MoviesAdapter;
-import com.example.damia.moviesapp.entities.DataHolder;
+import com.example.damia.moviesapp.database.DataInitializer;
+import com.example.damia.moviesapp.database.LocalDataSource;
 import com.example.damia.moviesapp.entities.Movie;
 
 import java.util.List;
@@ -22,14 +23,21 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Movie> mMovies;
+    private LocalDataSource mDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mMovies = DataHolder.getTestMoviesList();
+        DataInitializer.initialize(this);
+        setupActivityData();
         setupRecyclerView();
         setupItemTouchHandler();
+    }
+
+    private void setupActivityData() {
+        mDataSource = new LocalDataSource(this);
+        mMovies = mDataSource.getAllMovies();
     }
 
     private void setupItemTouchHandler() {
@@ -57,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.my_recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MoviesAdapter(this, mMovies);
+        mAdapter = new MoviesAdapter(mMovies);
         mRecyclerView.setAdapter(mAdapter);
     }
-
 
 }

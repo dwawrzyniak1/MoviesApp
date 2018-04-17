@@ -3,17 +3,15 @@ package com.example.damia.moviesapp.entities;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
+
+import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
  * Created by damia on 12.04.2018.
  */
 
-@Entity(tableName = "movie_photos", foreignKeys = @ForeignKey(entity = Movie.class, parentColumns = "id", childColumns = "movie_id"))
+@Entity(tableName = "movie_photos", primaryKeys = {"photo_source", "movie_id"}, foreignKeys = @ForeignKey(entity = Movie.class, parentColumns = "id", childColumns = "movie_id", onDelete = CASCADE))
 public class MoviePhoto {
-
-    @PrimaryKey(autoGenerate = true)
-    private long id;
 
     @ColumnInfo(name = "photo_source")
     private int photoSource;

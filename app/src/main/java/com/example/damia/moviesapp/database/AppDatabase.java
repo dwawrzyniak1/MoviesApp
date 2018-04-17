@@ -10,16 +10,19 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-import com.example.damia.moviesapp.entities.ActorMovieRelationship;
+import com.example.damia.moviesapp.entities.Role;
 import com.example.damia.moviesapp.entities.Movie;
 import com.example.damia.moviesapp.entities.MoviePhoto;
 import com.example.damia.moviesapp.entities.Person;
 
-@Database(entities = {Person.class, Movie.class, MoviePhoto.class, ActorMovieRelationship.class}, version = 1)
+@Database(entities = {Person.class, Movie.class, MoviePhoto.class, Role.class}, version = 1)
 @TypeConverters({PersonConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
     public abstract PersonDao personDao();
+    public abstract MovieDao movieDao();
+    public abstract RoleDao roleDao();
+    public abstract MoviePhotoDao moviePhotoDao();
 
     public static AppDatabase getAppDatabase(Context context){
         if(INSTANCE == null){

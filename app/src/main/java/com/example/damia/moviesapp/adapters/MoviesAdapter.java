@@ -21,16 +21,14 @@ import java.util.List;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
     private List<Movie> mMovies;
-    private Context mContext;
 
-    public MoviesAdapter(Context context, List<Movie> movies){
+    public MoviesAdapter(List<Movie> movies){
         mMovies = movies;
-        mContext = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView tvMovieTitle;
-        public ImageView ivMoviePoster;
+        TextView tvMovieTitle;
+        ImageView ivMoviePoster;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -46,7 +44,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION){
                 Movie movie = mMovies.get(position);
-                MovieActivity.start(view.getContext(), movie);
+                MovieActivity.start(view.getContext(), movie.getId());
             }
         }
     }
@@ -62,6 +60,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(MoviesAdapter.ViewHolder viewHolder, int position){
         Movie movie = mMovies.get(position);
+        System.out.println(movie);
         TextView textView = viewHolder.tvMovieTitle;
         textView.setText(movie.getTitle());
         ImageView imageView = viewHolder.ivMoviePoster;

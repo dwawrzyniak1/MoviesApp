@@ -2,21 +2,22 @@ package com.example.damia.moviesapp.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.GregorianCalendar;
+
+import static java.util.Calendar.YEAR;
 
 /**
  * Created by damia on 27.03.2018.
  */
 
 @Entity
-public class Person implements Parcelable{
+public class Person{
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long id = 0;
     @ColumnInfo(name = "first_name")
     private String firstName;
     @ColumnInfo(name = "last_name")
@@ -26,52 +27,33 @@ public class Person implements Parcelable{
     @ColumnInfo(name = "profile_image")
     private Integer imgResource;
 
-    public Person(String firstName, String lastName, GregorianCalendar dayOfBirth) {
+    public Person(long id, String firstName, String lastName, GregorianCalendar dayOfBirth, Integer imgResource) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dayOfBirth = dayOfBirth;
-    }
-
-    public Person(String firstName, String lastName, GregorianCalendar dayOfBirth, Integer imgResource) {
-        this(firstName, lastName, dayOfBirth);
         this.imgResource = imgResource;
     }
 
-    protected Person(Parcel in) {
-        firstName = in.readString();
-        lastName = in.readString();
-        dayOfBirth = (GregorianCalendar)in.readSerializable();
-        imgResource = in.readInt();
-    }
-
-    public static final Creator<Person> CREATOR = new Creator<Person>() {
-        @Override
-        public Person createFromParcel(Parcel in) {
-            return new Person(in);
-        }
-
-        @Override
-        public Person[] newArray(int size) {
-            return new Person[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(firstName);
-        out.writeString(lastName);
-        out.writeSerializable(dayOfBirth);
-        out.writeInt(imgResource);
+    @Ignore
+    public Person(String firstName, String lastName, GregorianCalendar dayOfBirth, Integer imgResource) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dayOfBirth = dayOfBirth;
+        this.imgResource = imgResource;
     }
 
     /*
     * GETTERS AND SETTERS
      */
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -108,10 +90,11 @@ public class Person implements Parcelable{
     @Override
     public String toString() {
         return "Person{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", age=" + (GregorianCalendar.getInstance().get(YEAR) - (dayOfBirth.get(YEAR))) +
+                ", imgResource=" + imgResource +
                 '}';
     }
-
-
 }

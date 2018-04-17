@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.damia.moviesapp.R;
+import com.example.damia.moviesapp.database.LocalDataSource;
 import com.example.damia.moviesapp.entities.Movie;
 import com.example.damia.moviesapp.fragments.FragmentActors;
 import com.example.damia.moviesapp.fragments.FragmentPhotos;
@@ -19,7 +20,7 @@ public class MovieActivity extends AppCompatActivity {
 
     private final static String MOVIE_KEY = "current";
 
-    private Movie mMovie;
+    private static Movie mMovie;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -33,9 +34,9 @@ public class MovieActivity extends AppCompatActivity {
 
     private void initialize() {
         setupFragmentsManagement();
-        System.out.println(getIntent());
-        mMovie = getIntent().getParcelableExtra(MOVIE_KEY);
-        initializeMovieInfo();
+        long movieId = getIntent().getLongExtra(MOVIE_KEY, 1);
+        mMovie = new LocalDataSource(this).getMovieById(movieId);
+        setupViewsWithMovieData();
     }
 
     private void setupFragmentsManagement() {
@@ -48,19 +49,18 @@ public class MovieActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void initializeMovieInfo() {
+    private void setupViewsWithMovieData() {
         ImageView ivMainImage = findViewById(R.id.iv_movie_main);
         ivMainImage.setImageResource(mMovie.getPosterResource());
         TextView tvTitle = findViewById(R.id.tv_movie_title);
         TextView tvGenre = findViewById(R.id.tv_movie_genre);
         tvTitle.setText(mMovie.getTitle());
-        System.out.println(mMovie.getGenre());
         tvGenre.setText(mMovie.getGenre());
     }
 
-    public static void start(Context context, Movie movie) {
+    public static void start(Context context, long movieId) {
         Intent starter = new Intent(context, MovieActivity.class);
-        starter.putExtra(MOVIE_KEY, movie);
+        starter.putExtra(MOVIE_KEY, movieId);
         context.startActivity(starter);
     }
 
@@ -68,17 +68,4 @@ public class MovieActivity extends AppCompatActivity {
         return mMovie;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        outState.putParcelable(MOVIE_KEY, mMovie);
-        System.out.println(mMovie);
-        System.out.println(outState.getParcelable(MOVIE_KEY));
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState){
-        mMovie = savedInstanceState.getParcelable(MOVIE_KEY);
-        System.out.println(mMovie);
-    }
 }

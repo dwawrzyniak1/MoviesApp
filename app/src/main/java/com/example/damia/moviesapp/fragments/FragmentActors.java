@@ -1,6 +1,7 @@
 package com.example.damia.moviesapp.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,11 +13,12 @@ import android.widget.ListView;
 import com.example.damia.moviesapp.R;
 import com.example.damia.moviesapp.activities.MovieActivity;
 import com.example.damia.moviesapp.adapters.PeopleAdapter;
-import com.example.damia.moviesapp.entities.DataHolder;
+import com.example.damia.moviesapp.database.LocalDataSource;
 import com.example.damia.moviesapp.entities.Movie;
 import com.example.damia.moviesapp.entities.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by damia on 08.04.2018.
@@ -26,39 +28,29 @@ public class FragmentActors extends Fragment {
 
     private ListView mListView;
     private PeopleAdapter mAdapter;
-    private ArrayList<Person> mPeople;
     private Activity mParent;
-    View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstaceState){
-        view = inflater.inflate(R.layout.people_fragment, container, false);
-        initializeViews();
-        return view;
-    }
-
-    private void initializeViews() {
+        View view = inflater.inflate(R.layout.people_fragment, container, false);
         mListView = view.findViewById(R.id.lv_people);
         mListView.setAdapter(mAdapter);
+        return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeOnCreate();
-    }
-
-    private void initializeOnCreate() {
         mParent = getActivity();
-        mPeople = new ArrayList<>();
-        fillPeopleArrayList();
-        mAdapter = new PeopleAdapter(mParent.getApplicationContext(), mPeople);
+        mAdapter = new PeopleAdapter(mParent.getApplicationContext(), getActorsArraylist());
     }
 
-    private void fillPeopleArrayList() {
+    private ArrayList<Person> getActorsArraylist() {
+        ArrayList<Person> people = new ArrayList<>();
         Movie movie = ((MovieActivity)mParent).getMovie();
-        System.out.println(movie);
-        for(Integer id : movie.getActorsIds()) mPeople.add(DataHolder.testActorsMap.get(id));
+        LocalDataSource localDataSource = new LocalDataSource(mParent.getApplicationContext());
+        people.addAll(localDataSource.getActorsFromMovie(movie.getId()));
+        return people;
     }
 }

@@ -1,80 +1,79 @@
 package com.example.damia.moviesapp.entities;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
+
 
 /**
  * Created by damia on 07.04.2018.
  */
 @Entity
-public class Movie implements Parcelable{
+public class Movie{
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
-    private String mTitle;
-    private String mGenre;
-    private Integer mPosterResource;
+    private long id = 0;
+    @ColumnInfo(name="title")
+    private String title;
+    @ColumnInfo(name="genre")
+    private String genre;
+    @ColumnInfo(name="poster_src")
+    private Integer posterResource;
 
-    public Movie(String mTitle, String mGenre, Integer mPosterResource) {
-        this.mTitle = mTitle;
-        this.mGenre = mGenre;
-        this.mPosterResource = mPosterResource;
+    public Movie(long id, String title, String genre, Integer posterResource) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.posterResource = posterResource;
     }
 
-    protected Movie(Parcel in){
-        mTitle = in.readString();
-        mGenre = in.readString();
-        mPosterResource = in.readInt();
+    @Ignore
+    public Movie(String title, String genre, Integer posterResource) {
+        this.title = title;
+        this.genre = genre;
+        this.posterResource = posterResource;
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
-        }
-
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public long getId() {
+        return id;
     }
 
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(mTitle);
-        out.writeString(mGenre);
-        out.writeInt(mPosterResource);
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public void setTitle(String mTitle) {
-        this.mTitle = mTitle;
+        this.title = mTitle;
     }
 
     public String getGenre() {
-        return mGenre;
+        return genre;
     }
 
     public void setGenre(String mGenre) {
-        this.mGenre = mGenre;
+        this.genre = mGenre;
     }
 
     public void setPosterResource(Integer imgResource){
-        mPosterResource = imgResource;
+        posterResource = imgResource;
     }
 
     public Integer getPosterResource(){
-        return mPosterResource;
+        return posterResource;
     }
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", posterResource=" + posterResource +
+                '}';
+    }
 }

@@ -51,12 +51,7 @@ public class PeopleAdapter extends ArrayAdapter<Person> {
 
     private String birthday(Person person) {
         GregorianCalendar day = person.getDayOfBirth();
-        StringBuilder date = new StringBuilder();
-        date.append(day.get(Calendar.DAY_OF_MONTH))
-                .append("/")
-                .append(day.get(Calendar.MONTH))
-                .append("/")
-                .append(day.get(Calendar.YEAR));
-        return date.toString();
+        String date = day.get(Calendar.DAY_OF_MONTH) + "/" + day.get(Calendar.MONTH) + "/" + day.get(Calendar.YEAR);
+        return date;
     }
 }

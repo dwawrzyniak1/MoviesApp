@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import com.example.damia.moviesapp.R;
 
+import java.util.List;
+
 /**
  * Created by damia on 09.04.2018.
  */
@@ -15,19 +17,21 @@ import com.example.damia.moviesapp.R;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
+    private List<Integer> mResources;
 
-    public ImageAdapter(Context context) {
+    public ImageAdapter(Context context, List<Integer> resources) {
         mContext = context;
+        mResources = resources;
     }
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return mResources.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return mResources.get(i);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class ImageAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageResource(mResources.get(position));
         return imageView;
     }
 
@@ -63,10 +67,4 @@ public class ImageAdapter extends BaseAdapter {
             setMeasuredDimension(width, width);
         }
     }
-
-    private Integer[] mThumbIds = {
-            R.drawable.sample_1, R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5, R.drawable.sample_6,
-            R.drawable.sample_7, R.drawable.sample_8, R.drawable.sample_9,
-    };
 }

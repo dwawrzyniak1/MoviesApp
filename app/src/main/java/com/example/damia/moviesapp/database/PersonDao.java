@@ -9,6 +9,8 @@ import android.arch.persistence.room.Update;
 
 import com.example.damia.moviesapp.entities.Person;
 
+import java.util.List;
+
 /**
  * Created by damia on 12.04.2018.
  */
@@ -17,7 +19,7 @@ import com.example.damia.moviesapp.entities.Person;
 public interface PersonDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertPeople(Person... people);
+    void insertPeople(Person[] people);
 
     @Update
     void updatePeople(Person... people);
@@ -26,6 +28,12 @@ public interface PersonDao {
     void deletePeople(Person... people);
 
     @Query("SELECT * FROM person")
-    Person[] loadAllPeople();
+    List<Person> loadAllPeople();
+
+    @Query("DELETE FROM person")
+    void deleteAllPeople();
+
+    @Query("SELECT id FROM person WHERE person.first_name=:firstName AND person.last_name=:lastName")
+    long findPersonIdByFirstnameAndLastname(String firstName, String lastName);
 
 }
